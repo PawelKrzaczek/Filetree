@@ -20,9 +20,8 @@ def filetree(root, path="", exep=[".py"]):
 
     # Get files in current folder:
     files = sorted(os.listdir(root))
-    files_filtered = [item for item in files if (not item.startswith(".") and
-                                                 not os.path.splitext(item)[1] in path)]
-    nfiles = len(files_filtered)
+    filtered=[item for item in files if (not item.startswith(".") and os.path.splitext(item)[1] not in exep)]
+    nfiles = len(filtered)
 
     # Print the content of the current folder:
     newpath = path + "|   "
@@ -31,9 +30,9 @@ def filetree(root, path="", exep=[".py"]):
         if i == nfiles - 1:
             newpath = path + "    "
             arrow = "`---- "
-        print("{:s}{:s}{:s}".format(path, arrow, files_filtered[i]))
+        print("{:s}{:s}{:s}".format(path, arrow, filtered[i]))
         # Recursive call to print the content of sub-folders:
-        filetree("{:s}/{:s}".format(root, files_filtered[i-1]), newpath, exep)
+        filetree("{:s}/{:s}".format(root, filtered[i]), newpath, exep)
 
 
 def main():
